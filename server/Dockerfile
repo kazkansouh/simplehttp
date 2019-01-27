@@ -9,7 +9,7 @@ RUN apk --no-cache add \
         net-tools \
         iproute2
 
-COPY Main.go /root/go/src/server/Main.go
+COPY server/Main.go /root/go/src/server/Main.go
 
 RUN apk --no-cache add --virtual build-dependencies \
         go git musl-dev && \
