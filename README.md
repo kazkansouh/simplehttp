@@ -12,10 +12,11 @@ unique request code that the server will echo back. Further, the
 client will check the unique code echo'ed back is the same as it
 expected.
 
-In the [appliance](appliance) directory there are two `gns3a` files to
-simplify the import process.  To change the server port in GNS3, set
-the environment variable `PORT` on the server container, there is no
-need to expose ports.
+In the
+[appliance](https://github.com/kazkansouh/simplehttp/tree/master/appliances)
+directory there are two `gns3a` files to simplify the import process.
+To change the server port in GNS3, set the environment variable `PORT`
+on the server container, there is no need to expose ports.
 
 Two `Dockerfile`s provided have been tested with GNS3 and built over a
 recent `alpine` image. The set of network tools included are similar
