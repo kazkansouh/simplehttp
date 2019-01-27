@@ -20,10 +20,7 @@ no need to expose ports.
 
 To build the Docker images, the following commands provide a guide:
 ```bash
-cd server
 docker build -t simple-server:latest server
-
-cd client
 docker build -t simple-client:latest client
 ```
 

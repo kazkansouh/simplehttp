@@ -23,4 +23,4 @@ ENV PORT 8080
 
 VOLUME ["/root"]
 
-CMD ["sh", "-c", "/bin/server --port $PORT"]
+CMD ["sh", "-c", "/usr/bin/server --port $PORT"]
