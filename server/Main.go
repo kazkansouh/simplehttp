@@ -18,7 +18,7 @@
 package main
 
 import (
-	"bytes"
+	e "encoding/json"
 	"flag"
 	"log"
 	"net/http"
@@ -30,22 +30,26 @@ const version string = "0.1"
 
 var port = flag.Uint("port", 8080, "Port to run web server on.")
 
+type response struct {
+	Client string `json:"client"`
+	Server string `json:"server"`
+	Page   string `json:"page"`
+}
+
 func baseHandler(w http.ResponseWriter, r *http.Request) {
-	log.Println("Request received for", r.URL.Path)
+	log.Println(r.RemoteAddr, "requested", r.URL.Path)
 	page := strings.TrimPrefix(r.URL.Path, "/")
-	var buff bytes.Buffer
-	f := func(s string) {
-		buff.Write([]byte(s))
+	res := response{
+		Client: r.RemoteAddr,
+		Server: r.Host,
+		Page:   page,
 	}
-	f("Hello ")
-	f(r.RemoteAddr)
-	f(" you requested ")
-	f(r.Host)
-	f(" for page ")
-	f(page)
-	f("\n")
-	w.Header().Add("Content-Type", "text/plain")
-	w.Write(buff.Bytes())
+	w.Header().Add("Content-Type", "application/json")
+	if b, e := e.Marshal(&res); e == nil {
+		w.Write(b)
+	} else {
+		w.Write([]byte(`{"error":"unable to marshal"}`))
+	}
 }
 
 func main() {

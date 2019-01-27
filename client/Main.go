@@ -18,22 +18,36 @@
 package main
 
 import (
+	e "encoding/json"
 	"flag"
 	"github.com/google/uuid"
 	"io"
 	"log"
 	"net/http"
+	"os"
 	"strconv"
-	"strings"
 )
+
+func new_id() string {
+	host, err := os.Hostname()
+	if err == nil {
+		return host + "-" + uuid.New().String()
+	}
+	return uuid.New().String()
+}
 
 var (
 	host  = flag.String("host", "localhost", "Remote host to connect to.")
 	port  = flag.Uint("port", 8080, "Port of remote host.")
-	id    = uuid.New().String()
-	reqid = flag.String("requestid", id, "The page to request from server, default is a random uuid.")
+	reqid = flag.String("requestid", new_id(), "The page to request from server, default is a random uuid.")
 	level = flag.Bool("verbose", false, "Display detailed information.")
 )
+
+type response struct {
+	Client string `json:"client"`
+	Server string `json:"server"`
+	Page   string `json:"page"`
+}
 
 func main() {
 	flag.Parse()
@@ -49,23 +63,24 @@ func main() {
 			return
 		}
 		buff := make([]byte, 1024)
-		_, err := resp.Body.Read(buff)
+		n, err := resp.Body.Read(buff)
 		if err != nil && err != io.EOF {
 			log.Println("Failed to read response body:", err)
 			return
 		}
-		response := string(buff)
-		if *level {
-			log.Println("Response:", string(buff))
-		}
-		words := strings.SplitN(response, " ", 8)
-		if len(words) != 8 {
-			log.Println("Invalid respose payload")
+		var r response
+		if err := e.Unmarshal(buff[:n], &r); err != nil {
+			log.Println("Failed to parse result from server:", err)
+			log.Println("Returned data:", string(buff))
 			return
 		}
-		r := strings.SplitN(words[7], "\n", 2)[0]
-		if r != *reqid {
-			log.Println("Request id does not match:", *reqid, "(expected)", r, "(received)")
+
+		if *level {
+			log.Printf("Response parsed ok: %+v\n", r)
+		}
+
+		if r.Page != *reqid {
+			log.Println("Request id does not match:", *reqid, "(expected)", r.Page, "(received)")
 			return
 		}
 		log.Println("Test OK!")

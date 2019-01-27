@@ -8,25 +8,27 @@ The server writes out a single line of text for each request that
 details the client and page requested.
 
 The client just performs a `HTTP GET` to the server address with a
-unique request code that the server will echo back.
+unique request code that the server will echo back. Further, the
+client will check the unique code echo'ed back is the same as it
+expected.
 
 The two `Dockerfile`s provided have been tested with GNS3 and built
-over the `gns3/ipterm:latest` image. To change the server port in
-GNS3, set the environment variable `PORT` on the server container,
-there is no need to expose ports.
+over a recent `alpine` image. The set of network tools include are
+similar to the `gns3/ipterm` image. To change the server port in GNS3,
+set the environment variable `PORT` on the server container, there is
+no need to expose ports.
 
 To build the Docker images, the following commands provide a guide:
 ```bash
 cd server
-go build -o output.bin Main.go
 docker build -t simple-server:latest .
 
-cd ../client
-go build -o output.bin Main.go
+cd client
 docker build -t simple-client:latest .
 ```
 
-The included `Makefile` attempts to run the above commands to build
-the docker images along with some bookkeeping of old docker images.
+The Dockerfiles will install temporarily install `golang` to compile
+the client/server. It is suggested that quick tests are perfomed
+outside Docker to avoid this.
 
 Copyright (c) 2018 Karim Kanso. All Rights Reserved.
