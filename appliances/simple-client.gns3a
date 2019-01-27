@@ -1,0 +1,18 @@
+{
+    "name": "simple-client",
+    "category": "guest",
+    "description": "simple-client is a alpine based networking toolbox with support for making requests to simple-server.\nIt contains the following utilities: net-tools, iproute2, ping, traceroute, curl, ssh client, netcat and tcpdump.",
+    "vendor_name": "simple-client",
+    "vendor_url": "https://github.com/kazkansouh/simplehttp",
+    "product_name": "simple-server",
+    "registry_version": 1,
+    "status": "stable",
+    "maintainer": "Karim Kanso",
+    "maintainer_email": "none@none.net",
+    "usage": "Use the binary 'client' to perform a get request to the server. The /root directory is persistent.",
+    "symbol": "linux_guest.svg",
+    "docker": {
+        "adapters": 1,
+        "image": "karimkanso/simple-client:latest"
+    }
+}

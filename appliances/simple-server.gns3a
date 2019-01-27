@@ -1,0 +1,19 @@
+{
+    "name": "simple-server",
+    "category": "guest",
+    "description": "simple-server is a alpine based http server supporting a basic request/response mechanism.",
+    "vendor_name": "simple-server",
+    "vendor_url": "https://github.com/kazkansouh/simplehttp",
+    "product_name": "simple-server",
+    "registry_version": 1,
+    "status": "stable",
+    "maintainer": "Karim Kanso",
+    "maintainer_email": "none@none.net",
+    "usage": "The server should start automatically. Set the environment variable PORT to define the port to listen on. The /root directory is persistent.",
+    "symbol": "linux_guest.svg",
+    "docker": {
+        "adapters": 1,
+        "image": "karimkanso/simple-server:latest",
+        "environment": "PORT=80"
+    }
+}
