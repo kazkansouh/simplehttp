@@ -4,9 +4,12 @@ RUN apk --no-cache add \
         curl \
         tcpdump \
         netcat-openbsd \
+        dhclient \
         openssh-client \
         net-tools \
         iproute2
+
+RUN ln -s /usr/sbin/dhclient /sbin/dhclient
 
 COPY server/Main.go /root/go/src/server/Main.go
 
