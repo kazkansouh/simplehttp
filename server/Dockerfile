@@ -4,7 +4,6 @@ RUN apk --no-cache add \
         curl \
         tcpdump \
         netcat-openbsd \
-        dhclient \
         openssh-client \
         net-tools \
         iproute2
