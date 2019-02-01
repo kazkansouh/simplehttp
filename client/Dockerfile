@@ -6,6 +6,7 @@ RUN apk --no-cache add \
         netcat-openbsd \
         openssh-client \
         net-tools \
+        bind-tools \
         iproute2
 
 COPY client/Main.go /root/go/src/client/Main.go
