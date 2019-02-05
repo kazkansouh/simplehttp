@@ -7,6 +7,7 @@ RUN apk --no-cache add \
         openssh-client \
         net-tools \
         bind-tools \
+        wpa_supplicant \
         iproute2
 
 COPY client/Main.go /root/go/src/client/Main.go
