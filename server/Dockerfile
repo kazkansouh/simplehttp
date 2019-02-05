@@ -8,6 +8,7 @@ RUN apk --no-cache add \
         openssh-client \
         net-tools \
         bind-tools \
+        wpa_supplicant \
         iproute2
 
 RUN ln -s /usr/sbin/dhclient /sbin/dhclient
