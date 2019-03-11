@@ -8,6 +8,7 @@ RUN apk --no-cache add \
         net-tools \
         bind-tools \
         wpa_supplicant \
+        busybox-extras \
         iproute2
 
 COPY server/Main.go /root/go/src/server/Main.go
