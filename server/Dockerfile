@@ -10,6 +10,7 @@ RUN apk --no-cache add \
         bind-tools \
         wpa_supplicant \
         busybox-extras \
+        nmap \
         iproute2
 
 RUN ln -s /usr/sbin/dhclient /sbin/dhclient
