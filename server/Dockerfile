@@ -12,6 +12,40 @@ RUN apk --no-cache add \
         nmap \
         iproute2
 
+RUN apk --no-cache add \
+        ncurses \
+        libcurl \
+        libpcap \
+        libnet \
+        pcre && \
+        mkdir /ettercap && \
+        cd /ettercap && \
+        curl -o ettercap.tar.gz -L https://github.com/Ettercap/ettercap/releases/download/v0.8.2/ettercap-0.8.2.tar.gz && \
+        tar xf ettercap.tar.gz && \
+        cd ettercap-0.8.2/ && \
+        apk --no-cache add --virtual build-dependencies \
+        cmake \
+        make \
+        gcc \
+        musl-dev \
+        ncurses-dev \
+        curl-dev \
+        libpcap-dev \
+        libnet-dev \
+        pcre-dev \
+        flex \
+        bison \
+        linux-headers && \
+        mkdir build && \
+        cd build && \
+        cmake -DENABLE_GTK=OFF -DCMAKE_INSTALL_PREFIX=/usr \
+        -DINSTALL_DESKTOP=OFF ../ && \
+        make && \
+        make install && \
+        cd / && \
+        rm -rf /ettercap && \
+        apk del build-dependencies
+
 COPY server/Main.go /root/go/src/server/Main.go
 
 RUN apk --no-cache add --virtual build-dependencies \
