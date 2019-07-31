@@ -10,6 +10,10 @@ RUN apk --no-cache add \
         wpa_supplicant \
         busybox-extras \
         nmap \
+        nmap-nselibs \
+        nmap-scripts \
+        nmap-ncat \
+        nmap-nping \
         iproute2
 
 RUN apk --no-cache add \
