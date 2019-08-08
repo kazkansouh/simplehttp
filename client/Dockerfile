@@ -14,6 +14,7 @@ RUN apk --no-cache add \
         nmap-scripts \
         nmap-ncat \
         nmap-nping \
+        ip6tables \
         iproute2
 
 RUN apk --no-cache add \
